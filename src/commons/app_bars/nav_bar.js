@@ -14,6 +14,12 @@ class CustomNavBar extends React.Component {
                 
                 <SideNav style={{'backgroundColor': '#0174d2'}} onSelect={(selected) => {
                         console.log(selected)
+
+                        if(selected === 'home'){
+                            console.log(selected)
+                            window.location = '/admin/home'
+                        }
+
                         if(selected === 'user/add'){
                             console.log(selected)
                             window.location = '/admin/userAdd'
@@ -64,7 +70,7 @@ class CustomNavBar extends React.Component {
                     }}> 
 
                     <SideNav.Toggle/>
-                        <SideNav.Nav defaultSelected="home">
+                        <SideNav.Nav>
 
                         <NavItem eventKey="user">
                                     <NavIcon>
