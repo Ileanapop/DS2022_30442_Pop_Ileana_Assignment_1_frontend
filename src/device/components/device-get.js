@@ -117,11 +117,7 @@ class GetDevice extends React.Component {
               </div>
               
                  
-              <div className="input-group">
-              <label className='getLabel'>List of associated user devices: </label>
-              <List>{this.state.userDevices}</List>
-
-                </div>
+              
                 </div>
                 </div>
             </div>

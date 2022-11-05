@@ -7,7 +7,6 @@ import {Redirect} from "react-router-dom";
 import axios from "axios";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import { Chart } from 'react-charts/dist/react-charts.development';
 import { LineChart,Line,CartesianGrid,XAxis,YAxis,Tooltip,Legend } from 'recharts';
 
 

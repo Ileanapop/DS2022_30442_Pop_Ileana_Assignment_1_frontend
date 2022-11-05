@@ -21,8 +21,36 @@ class UserTable extends React.Component {
         var items = [];
           for(var i=0; i< response.data.length; i++){
             var role = response.data[i];
-            console.log(role);
-            items.push(role);
+
+            var id = role["id"]
+            var name = role["name"]
+            var type = role["type"]
+            var devices = role["devices"]
+
+            var allDevices=''
+            if(devices.length ===0)
+            {
+                allDevices = "No device mapped"
+            }
+            else{
+            
+                for(var j=0;j<devices.length;j++)
+                {
+                    var x = devices[j]
+                    allDevices += x["id"]
+                    allDevices+=", "
+                }
+            }
+
+            console.log(allDevices)
+
+            var myObj={
+                id: id,
+                name:name,
+                type:type,
+                devices:allDevices
+            }
+            items.push(myObj);
           }
           this.setState({tableData: items}); 
           console.log(this.state.tableData);

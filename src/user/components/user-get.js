@@ -4,7 +4,6 @@ import axios from "axios";
 import { TextField } from '@material-ui/core';
 import CustomAppBar from '../../commons/app_bars/app_bar';
 import CustomNavBar from '../../commons/app_bars/nav_bar';
-import {List} from '@material-ui/core';
 import '../../commons/styles/project-style.css';
 
 
@@ -39,13 +38,28 @@ class GetUser extends React.Component {
         var items = [];
         var source =response.data["devices"];
         if(source!=null){
-            for(var i=0; i<source.length; i++){
-            var device = source[i];
-            items.push(device);
+
+            if(source.length ===0)
+            {
+                items.push("No devices mapped")
             }
+            else{
+            
+                for(var j=0;j<source.length;j++)
+                {
+                    var x = source[j]
+                    items.push(x["id"])
+                }
+            }
+
             this.setState({devices: items});
+            console.log(this.state.devices)
+        }
+        else{
+            this.setState({devices: ["No devices mapped"]});
         }
 
+        console.log(this.state.devices)
 
         this.setState({name: response.data["name"]})
         this.setState({type: response.data["type"]})
@@ -63,7 +77,7 @@ class GetUser extends React.Component {
             this.setState({name: "not found"})
             this.setState({type: "not found"})
             this.setState({id: "not found"})
-            this.setState({devices: []})  
+            this.setState({devices: ["not found"]})  
         }
        });
     }
@@ -113,9 +127,17 @@ class GetUser extends React.Component {
                  
               <div className="input-group">
               <label className='getLabel'>List of associated devices: </label>
-              <List></List>
-
-                </div>
+              
+            </div>
+                    <ul className='getData'>
+                    {this.state.devices.map((item) => {
+                                    return (
+                                    <li key={item} value={item}>
+                                        {item} 
+                                    </li>
+                                    )
+                                })}
+                </ul>
                 </div>
                 </div>
             </div>

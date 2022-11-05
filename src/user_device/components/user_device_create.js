@@ -42,11 +42,24 @@ class CreateUserDeviceMapping extends React.Component {
         var items = [];
         var source =response.data["devices"];
         if(source!=null){
-            for(var i=0; i<source.length; i++){
-            var device = source[i];
-            items.push(device);
+
+            if(source.length ===0)
+            {
+                items.push("No devices mapped")
             }
+            else{
+            
+                for(var j=0;j<source.length;j++)
+                {
+                    var x = source[j]
+                    items.push(x["id"])
+                }
+            }
+
             this.setState({associatedDevices: items});
+        }
+        else{
+            this.setState({associatedDevices: ["No devices mapped"]});
         }
 
 
@@ -166,6 +179,7 @@ class CreateUserDeviceMapping extends React.Component {
 
 
                 <table>
+                    <tbody>
 
                 <tr>
 
@@ -196,9 +210,18 @@ class CreateUserDeviceMapping extends React.Component {
                  
               <div className="input-group">
               <label className='getLabel'>List of associated devices: </label>
-              <List>{this.state.associatedDevices}</List>
+              
 
                 </div>
+                <ul className='getData'>
+                    {this.state.associatedDevices.map((item) => {
+                                    return (
+                                    <li key={item} value={item}>
+                                        {item} 
+                                    </li>
+                                    )
+                                })}
+                </ul>
                 </div>
                 </td>
 
@@ -240,10 +263,12 @@ class CreateUserDeviceMapping extends React.Component {
                 </tr>
 
                 <tr>
+                    <td>
                         <div className="input-group">
                         <label htmlFor="name">Device Address: </label>
                         <input type="text" name="address"  onChange={(e) => { this.setState({address: e.target.value})}} placeholder={this.state.address} required/>
                         </div>
+                        </td>
                 </tr>
 
                 <tr>
@@ -253,6 +278,7 @@ class CreateUserDeviceMapping extends React.Component {
                     </td>
                 </tr>
 
+                </tbody>
                 </table>
 
 
