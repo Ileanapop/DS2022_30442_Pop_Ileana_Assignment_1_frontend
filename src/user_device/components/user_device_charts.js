@@ -8,7 +8,7 @@ import axios from "axios";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { Chart } from 'react-charts/dist/react-charts.development';
-import { LineChart,Line } from 'recharts';
+import { LineChart,Line,CartesianGrid,XAxis,YAxis,Tooltip,Legend } from 'recharts';
 
 
 class UserDeviceChart extends React.Component {
@@ -19,40 +19,118 @@ class UserDeviceChart extends React.Component {
         super();
         this.state = 
         {
-          id:'',
+          userDevicesIds:[],
           energyConsumptions:[],
           day:new Date(),
+          selectedDevice:'',
 
-          dataChart:[
-            {
-              data: 21,
-              label: 'Series 1',
-            },
-            { 
-              data: 40,
-              label: 'Series 2',
-            }
-          ],
+          dataChart:[],
 
           axex:[
             { primary: true, type: 'linear', position: 'bottom' },
             { type: 'linear', position: 'left' }
           ],
         };
-        this.handleChooseDay = this.handleChooseDay.bind(this);
+        this.handleDaySelection = this.handleDaySelection.bind(this);
       }
 
-    componentDidMount = () => {
+      componentDidMount = () => {
 
-        
-    }
+        axios.get("https://localhost:7292/api/User/byClientName", {
+           params: {
+               name: JSON.parse(localStorage.getItem('name'))
+           },
+           headers: {'Content-type': 'application/json',
+                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}` 
+         }
+       })
+       .then((response) =>{
+        console.log(response.data);
+    
+        var items = [];
+        var source =response.data["devices"];
+        if(source!=null){
+            for(var i=0; i<source.length; i++){
+                var userDevice = source[i];             
+                var userDeviceId = userDevice["id"];
 
-    handleChooseDay(date) { 
+                items.push(userDeviceId);
+                
+            }
+            this.setState({userDevicesIds: items});
+        }
+       })
+       .catch((err) => {
+        //console.log(err.response.status)        
+        if(err.response.status === 403){
+            alert("Unauthorized")
+            window.location = '/'
+        }
+        else
+        {
+            alert(err.response.data)    
+            this.setState({userDevicesIds: []})  
+        }
+       });
+      }
+
+    handleDaySelection(date) { 
         console.log(date) 
       this.setState({  
         day: date  
       })      
     }
+
+    viewChart(e) { 
+      console.log(this.state.day)
+      console.log(this.state.selectedDevice)
+
+      axios.get("https://localhost:7292/api/EnergyConsumption/byDay", {
+           params: {
+               id: this.state.selectedDevice,
+               date: this.state.day
+           },
+           headers: {'Content-type': 'application/json',
+                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}` 
+         }
+       })
+       .then((response) =>{
+        console.log(response.data);
+    
+        var items = [];
+        var source =response.data;
+        if(source!=null){
+            for(var i=0; i<source.length; i++){
+                var consumptionData = source[i];             
+                var hour = consumptionData["hour"];
+                var consumption = consumptionData["consumption"];
+
+                var myObj = {
+                  hour: hour,
+                  consumption: consumption 
+                };
+
+                items.push(myObj);
+                
+            }
+            this.setState({dataChart: items});
+            console.log(this.state.dataChart)
+        }
+       })
+       .catch((err) => {
+        //console.log(err.response.status)        
+        if(err.response.status === 403){
+            alert("Unauthorized")
+            window.location = '/'
+        }
+        else
+        {
+            alert(err.response.data)    
+            this.setState({dataChart: []})  
+        }
+       });
+
+  }
 
 
     render() {
@@ -72,13 +150,33 @@ class UserDeviceChart extends React.Component {
                 <CustomAppBar></CustomAppBar>
                 <CustomClientNavBar></CustomClientNavBar>
 
-                
+              <table>
+                <tbody>
+                <tr>
+                  <td>
+                <div style={{ border:50, marginLeft:100, marginTop: 50,width:500}}>
+         
+                    <h1>Choose a device</h1>
+                    <br></br>
+                    <div>                           
+                      <select onChange={(e) => { this.setState({selectedDevice: e.target.value})}}>                                      
+                        {this.state.userDevicesIds.map((item) => {
+                            return (
+                            <option key={item} value={item}>
+                                {item}
+                            </option>
+                            )
+                        })}
+                      </select>
+                  </div>
+                              
+                </div>
 
                 <div style={{ border:50, marginLeft:100, marginTop: 50,width:500}}>
                     <h1>Choose a day</h1>
                     <DatePicker  
                         selected={ this.state.day}  
-                        onChange={ this.handleChangeStartTime }  
+                        onChange={this.handleDaySelection}  
                         name="day"  
                         showTimeSelect
                         timeFormat="HH:mm"
@@ -87,17 +185,42 @@ class UserDeviceChart extends React.Component {
                         dateFormat="MM/dd/yyyy"  
                     />
                 </div>
+                </td>
 
+                <td>
                 <div style={{ border:50, marginLeft:100, marginTop: 50,width:800}}>
                     <h1>Energy Consumption Charts</h1>
                 </div>
 
                     <div style={{ border:50, marginLeft:100, marginTop: 50,width:800}}>
-                    <LineChart width={600} height={300} data={this.state.dataChart}>
-                        <Line type = "monotone" dataKey = "data" stroke="#2196F3"/>
-                    </LineChart>
+                    <LineChart
+                      width={800}
+                      height={300}
+                      data={this.state.dataChart}
+                      margin={{
+                        top: 5, right: 30, left: 20, bottom: 5,
+                      }}
+                    >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="hour" />
+                    <YAxis dataKey="consumption"/>
+                  <Tooltip />
+                  <Legend  layout="horizontal" verticalAlign="top" align="center"/>
+                  <Line type = "monotone" dataKey = "consumption" stroke="#2196F3"/>
+                </LineChart>
+                    
+
                     </div>
-                
+                    </td>
+
+                    </tr>
+                    <tr>
+                      <td align='center'>
+                    <button onClick={(e) => this.viewChart(e)}>View Chart</button>
+                    </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
         )
