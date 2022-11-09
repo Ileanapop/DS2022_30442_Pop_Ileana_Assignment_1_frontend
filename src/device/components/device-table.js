@@ -13,7 +13,7 @@ class DeviceTable extends React.Component {
 
     componentDidMount = () => {
 
-        axios.get("https://localhost:7292/api/EnergyDevice/all", {
+        axios.get("https://localhost:44378/api/EnergyDevice/all", {
             headers: {'Content-type': 'application/json',
                 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`}
        })

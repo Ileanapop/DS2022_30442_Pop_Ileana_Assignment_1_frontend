@@ -23,7 +23,7 @@ class DeleteUser extends React.Component {
       }
 
       handleSearch(e) { 
-        axios.get("https://localhost:7292/api/User/byName", {
+        axios.get("https://localhost:44378/api/User/byName", {
            params: {
                name: this.state.searchedUsername
            },
@@ -55,7 +55,7 @@ class DeleteUser extends React.Component {
     }
 
     handleDelete(e) { 
-        axios.delete("https://localhost:7292/api/User", {
+        axios.delete("https://localhost:44378/api/User", {
            params: {
                id: this.state.id
            },

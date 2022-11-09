@@ -23,7 +23,7 @@ class UpdateDevice extends React.Component {
 
       handleSearch(e) { 
         
-        axios.get("https://localhost:7292/api/EnergyDevice/byName", {
+        axios.get("https://localhost:44378/api/EnergyDevice/byName", {
            params: {
                name: this.state.searchedModelName
            },
@@ -59,7 +59,7 @@ class UpdateDevice extends React.Component {
     
         axios({
       
-          url: "https://localhost:7292/api/EnergyDevice",
+          url: "https://localhost:44378/api/EnergyDevice",
           method: "PUT",
           headers: {'Content-type': 'application/json',
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}` 

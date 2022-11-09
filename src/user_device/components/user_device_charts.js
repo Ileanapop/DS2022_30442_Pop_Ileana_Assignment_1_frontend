@@ -35,7 +35,7 @@ class UserDeviceChart extends React.Component {
 
       componentDidMount = () => {
 
-        axios.get("https://localhost:7292/api/User/byClientName", {
+        axios.get("https://localhost:44378/api/User/byClientName", {
            params: {
                name: JSON.parse(localStorage.getItem('name'))
            },
@@ -84,7 +84,7 @@ class UserDeviceChart extends React.Component {
       console.log(this.state.day)
       console.log(this.state.selectedDevice)
 
-      axios.get("https://localhost:7292/api/EnergyConsumption/byDay", {
+      axios.get("https://localhost:44378/api/EnergyConsumption/byDay", {
            params: {
                id: this.state.selectedDevice,
                date: this.state.day

@@ -24,7 +24,7 @@ class CreateDevice extends React.Component {
         
         axios({
       
-          url: "https://localhost:7292/api/EnergyDevice",
+          url: "https://localhost:44378/api/EnergyDevice",
           method: "POST",
           headers: {'Content-type': 'application/json',
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}` 

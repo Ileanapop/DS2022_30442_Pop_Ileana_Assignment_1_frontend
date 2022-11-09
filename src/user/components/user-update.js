@@ -26,7 +26,7 @@ class UpdateUser extends React.Component {
 
       handleSearch(e) { 
         
-        axios.get("https://localhost:7292/api/User/byName", {
+        axios.get("https://localhost:44378/api/User/byName", {
            params: {
                name: this.state.searchedUsername
            },
@@ -69,7 +69,7 @@ class UpdateUser extends React.Component {
         console.log(finalType)
         axios({
       
-          url: "https://localhost:7292/api/User",
+          url: "https://localhost:44378/api/User",
           method: "PUT",
           headers: {'Content-type': 'application/json',
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}` 

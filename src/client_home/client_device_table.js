@@ -14,7 +14,7 @@ class ClientDeviceTable extends React.Component {
 
     componentDidMount = () => {
 
-        axios.get("https://localhost:7292/api/User/byClientName", {
+        axios.get("https://localhost:44378/api/User/byClientName", {
            params: {
                name: JSON.parse(localStorage.getItem('name'))
            },

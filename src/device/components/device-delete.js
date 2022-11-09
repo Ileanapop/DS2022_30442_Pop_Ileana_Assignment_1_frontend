@@ -24,7 +24,7 @@ class DeleteDevice extends React.Component {
       }
 
       handleSearch(e) { 
-        axios.get("https://localhost:7292/api/EnergyDevice/byName", {
+        axios.get("https://localhost:44378/api/EnergyDevice/byName", {
            params: {
                name: this.state.searchedDevice
            },
@@ -70,7 +70,7 @@ class DeleteDevice extends React.Component {
     }
 
     handleDelete(e) { 
-        axios.delete("https://localhost:7292/api/EnergyDevice", {
+        axios.delete("https://localhost:44378/api/EnergyDevice", {
            params: {
                id: this.state.id
            },

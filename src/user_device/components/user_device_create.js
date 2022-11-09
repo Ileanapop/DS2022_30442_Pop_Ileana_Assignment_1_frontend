@@ -29,7 +29,7 @@ class CreateUserDeviceMapping extends React.Component {
       }
 
       handleSearchUser(e) { 
-        axios.get("https://localhost:7292/api/User/byName", {
+        axios.get("https://localhost:44378/api/User/byName", {
            params: {
                name: this.state.searchedUsername
            },
@@ -85,7 +85,7 @@ class CreateUserDeviceMapping extends React.Component {
 
 
     handleSearchDevice(e) { 
-        axios.get("https://localhost:7292/api/EnergyDevice/byName", {
+        axios.get("https://localhost:44378/api/EnergyDevice/byName", {
            params: {
                name: this.state.searchedDevice
            },
@@ -125,7 +125,7 @@ class CreateUserDeviceMapping extends React.Component {
         else{
         axios({
       
-            url: "https://localhost:7292/api/UserDevice",
+            url: "https://localhost:44378/api/UserDevice",
             method: "POST",
             headers: {'Content-type': 'application/json',
                       'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}` 

@@ -13,7 +13,7 @@ class UserTable extends React.Component {
 
     componentDidMount = () => {
 
-        axios.get("https://localhost:7292/api/User/all", {
+        axios.get("https://localhost:44378/api/User/all", {
             headers: {'Content-type': 'application/json',
                 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`}
        })
