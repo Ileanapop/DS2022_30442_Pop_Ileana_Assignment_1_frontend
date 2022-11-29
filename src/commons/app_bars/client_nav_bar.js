@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/project-style.css';
-import {FaList, FaChartBar}  from 'react-icons/fa';
+import {FaList, FaChartBar,FaExclamation}  from 'react-icons/fa';
 import SideNav, { NavItem, NavIcon,NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 
@@ -24,6 +24,11 @@ class CustomClientNavBar extends React.Component {
                             window.location = '/client/viewChart'
                         }
 
+                        if(selected === 'client/notifications'){
+                            console.log(selected)
+                            window.location = '/client/notifications'
+                        }
+
                     }}> 
 
                     <SideNav.Toggle/>
@@ -45,6 +50,16 @@ class CustomClientNavBar extends React.Component {
                                     </NavIcon>
                                     <NavText>
                                         Energy Consumption
+                                    </NavText>
+
+                        </NavItem>
+
+                        <NavItem eventKey="client/notifications">
+                                    <NavIcon>
+                                        <FaExclamation style={{marginRight:20}}/>
+                                    </NavIcon>
+                                    <NavText>
+                                        Notifications
                                     </NavText>
 
                         </NavItem>

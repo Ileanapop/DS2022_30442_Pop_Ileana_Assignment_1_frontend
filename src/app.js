@@ -42,15 +42,24 @@ class App extends React.Component {
         localStorage.setItem('password', JSON.stringify(this.state.password));
         localStorage.setItem('token', JSON.stringify(response.data["key"]));
         localStorage.setItem('type', JSON.stringify(response.data['userRole']));
+        localStorage.setItem('userId', JSON.stringify(response.data['userId']));
         this.setState({loggedIn:1})  
         if(response.data['userRole'] === 'admin'){
             window.location = '/admin/home'
         }     
         if(response.data['userRole'] === 'client'){
+
+            //socket = new W3CWebSocket('ws://localhost:44378/api/WebSockets');
+           // const WebSocket = require('ws');
+            /*let socket = new WebSocket("wss://localhost:44378/api/WebSockets");
+            console.log("client connected")
+
+            socket.onopen = () => socket.send(response.data['userId']);*/
+
             window.location = '/client/home'
         }
        })
-       .catch((error) => alert("Invalid login credentials"));
+       .catch((error) => alert(error));
     }
 
     render() {

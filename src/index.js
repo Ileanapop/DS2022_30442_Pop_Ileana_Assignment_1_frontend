@@ -17,6 +17,7 @@ import UpdateDevice from './device/components/device-update';
 import DeleteDevice from './device/components/device-delete';
 import CreateUserDeviceMapping from './user_device/components/user_device_create';
 import UserDeviceChart from './user_device/components/user_device_charts';
+import ClientNotifications from './client_home/client_notifications';
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -38,6 +39,7 @@ ReactDOM.render(
          <Route path="/admin/deviceDelete" component={DeleteDevice}/>
          <Route path="/admin/userDeviceCreate" component={CreateUserDeviceMapping}/>
          <Route path="/client/viewChart" component={UserDeviceChart}/>
+         <Route path="/client/notifications" component={ClientNotifications}/>
          <Route path="/" component={App}/> 
          </Switch>   
       </div>
