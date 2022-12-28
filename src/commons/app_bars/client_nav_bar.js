@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/project-style.css';
-import {FaList, FaChartBar,FaExclamation}  from 'react-icons/fa';
+import {FaList, FaChartBar,FaExclamation, FaWhatsapp}  from 'react-icons/fa';
 import SideNav, { NavItem, NavIcon,NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 
@@ -27,6 +27,11 @@ class CustomClientNavBar extends React.Component {
                         if(selected === 'client/notifications'){
                             console.log(selected)
                             window.location = '/client/notifications'
+                        }
+
+                        if(selected === 'client/chat'){
+                            console.log(selected)
+                            window.location = '/client/chat'
                         }
 
                     }}> 
@@ -60,6 +65,16 @@ class CustomClientNavBar extends React.Component {
                                     </NavIcon>
                                     <NavText>
                                         Notifications
+                                    </NavText>
+
+                        </NavItem>
+
+                        <NavItem eventKey="client/chat">
+                                    <NavIcon>
+                                        <FaWhatsapp style={{marginRight:20}}/>
+                                    </NavIcon>
+                                    <NavText>
+                                        Chat
                                     </NavText>
 
                         </NavItem>

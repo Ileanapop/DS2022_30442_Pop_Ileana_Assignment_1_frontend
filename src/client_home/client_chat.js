@@ -4,6 +4,8 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import CustomAppBar from '../commons/app_bars/app_bar';
 import CustomClientNavBar from '../commons/app_bars/client_nav_bar';
 import {Redirect} from "react-router-dom";
+import {User} from '../output/src/chat_pb'
+import { ChatServiceClient } from "../output/src/chat_grpc_web_pb";
 
 class ClientChat extends React.Component {
 
@@ -13,19 +15,26 @@ class ClientChat extends React.Component {
             messages: [],
             currentMessage:''
         };
+        this.client = new ChatServiceClient("http://localhost:8080", null, null);
      
     }
 
     handleNewMsg(e) { 
-    
-        var myObj = {
-            sender: "client",
-            text: this.state.currentMessage
-        };
-        var messagesSoFar = this.state.messages
-        messagesSoFar.push(myObj)
-        this.setState({messages:messagesSoFar});
-        
+
+        const user = new User();
+        user.setId(JSON.parse(localStorage.getItem('userId')));
+
+        this.client.joinChat(user, null, (err, response) => {
+            if (err) return console.log(err);
+            const error = response.getError();
+            const msg = response.getMsg();
+
+            console.log(error);
+            console.log(msg);
+            var messagesSoFar = this.state.messages
+            messagesSoFar.push(msg)
+            this.setState({messages:messagesSoFar});
+        });
     }
 
     render() {

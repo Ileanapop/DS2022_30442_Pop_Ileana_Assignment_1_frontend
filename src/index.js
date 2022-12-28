@@ -21,6 +21,7 @@ import ClientNotifications from './client_home/client_notifications';
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ClientChat from './client_home/client_chat';
 
 ReactDOM.render(
     <BrowserRouter>
@@ -40,6 +41,7 @@ ReactDOM.render(
          <Route path="/admin/userDeviceCreate" component={CreateUserDeviceMapping}/>
          <Route path="/client/viewChart" component={UserDeviceChart}/>
          <Route path="/client/notifications" component={ClientNotifications}/>
+         <Route path="/client/chat" component={ClientChat}/>
          <Route path="/" component={App}/> 
          </Switch>   
       </div>
