@@ -15,7 +15,7 @@ class ClientChat extends React.Component {
             messages: [],
             currentMessage:''
         };
-        this.client = new ChatServiceClient("http://localhost:8080", null, null);
+        this.client = new ChatServiceClient("https://localhost:44378", null, null);
      
     }
 
