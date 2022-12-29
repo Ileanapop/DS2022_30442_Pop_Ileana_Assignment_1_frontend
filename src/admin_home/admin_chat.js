@@ -148,7 +148,8 @@ class AdminChat extends React.Component {
         for(var i = 0; i < this.state.clientsWithMessages.length; i++){
             var chat_msg = this.state.clientsWithMessages[i];
             var from = chat_msg.getFrom()
-            if(from === this.state.current_client){
+            var to = chat_msg.getTo()
+            if(from === this.state.current_client  || to === this.state.current_client){
                 messages_client.push(chat_msg.getMsg())
             }
         }
@@ -173,6 +174,12 @@ class AdminChat extends React.Component {
 
         this.getMessagesOfCurrentClient()
 
+    }
+
+    changeChat(e) { 
+
+        //this.setState({current_client: e.target.value})
+        this.getMessagesOfCurrentClient();
     }
 
     handleClientChatMessages(e) { 
@@ -204,7 +211,7 @@ class AdminChat extends React.Component {
                     <h1>Clients online</h1>
                     <br></br>
                     <div>                           
-                      <select onChange={(e) => { this.handleClientChatMessages(e)}}>                                      
+                      <select onChange={(e) => { this.setState({current_client: e.target.value})}}>                                     
                         {this.state.all_clients.map((item) => {
                             return (
                             <option key={item} value={item}>
@@ -214,6 +221,9 @@ class AdminChat extends React.Component {
                         })}
                       </select>
                   </div>
+
+
+                  <button className="primary" onClick={(e) => this.changeChat(e)}>See chat</button>
                               
                 </div>
 
