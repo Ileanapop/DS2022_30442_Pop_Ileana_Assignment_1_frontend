@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/project-style.css';
-import {FaList,FaUserPlus, FaUser, FaUserEdit,FaUserMinus,FaSearch, FaPlus, FaMinus, FaEdit, FaDesktop, FaLink}  from 'react-icons/fa';
+import {FaList,FaUserPlus, FaUser, FaUserEdit,FaUserMinus,FaSearch, FaPlus, FaMinus, FaEdit, FaDesktop, FaLink, FaWhatsapp}  from 'react-icons/fa';
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 
@@ -64,6 +64,11 @@ class CustomNavBar extends React.Component {
                         if(selected === 'userDevice/create'){
                             console.log(selected)
                             window.location = '/admin/userDeviceCreate'
+                        }
+
+                        if(selected === 'admin/chat'){
+                            console.log(selected)
+                            window.location = '/admin/chat'
                         }
 
 
@@ -180,6 +185,16 @@ class CustomNavBar extends React.Component {
                                         Create Mapping
                                     </NavIcon>
                                     </NavItem>
+
+                        </NavItem>
+
+                        <NavItem eventKey="admin/chat">
+                                    <NavIcon>
+                                        <FaWhatsapp style={{marginRight:20}}/>
+                                    </NavIcon>
+                                    <NavText>
+                                        Chat
+                                    </NavText>
 
                         </NavItem>
 

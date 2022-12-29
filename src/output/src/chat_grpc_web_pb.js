@@ -135,5 +135,183 @@ proto.chatManagement.ChatServicePromiseClient.prototype.joinChat =
 };
 
 
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.chatManagement.ChatMessage,
+ *   !proto.chatManagement.Empty>}
+ */
+const methodDescriptor_ChatService_SendMsg = new grpc.web.MethodDescriptor(
+  '/chatManagement.ChatService/SendMsg',
+  grpc.web.MethodType.UNARY,
+  proto.chatManagement.ChatMessage,
+  proto.chatManagement.Empty,
+  /**
+   * @param {!proto.chatManagement.ChatMessage} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.chatManagement.Empty.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.chatManagement.ChatMessage} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.chatManagement.Empty)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.chatManagement.Empty>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.chatManagement.ChatServiceClient.prototype.sendMsg =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/chatManagement.ChatService/SendMsg',
+      request,
+      metadata || {},
+      methodDescriptor_ChatService_SendMsg,
+      callback);
+};
+
+
+/**
+ * @param {!proto.chatManagement.ChatMessage} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.chatManagement.Empty>}
+ *     Promise that resolves to the response
+ */
+proto.chatManagement.ChatServicePromiseClient.prototype.sendMsg =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/chatManagement.ChatService/SendMsg',
+      request,
+      metadata || {},
+      methodDescriptor_ChatService_SendMsg);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.chatManagement.ReceiveMsgRequest,
+ *   !proto.chatManagement.ChatMessage>}
+ */
+const methodDescriptor_ChatService_ReceiveMsg = new grpc.web.MethodDescriptor(
+  '/chatManagement.ChatService/ReceiveMsg',
+  grpc.web.MethodType.SERVER_STREAMING,
+  proto.chatManagement.ReceiveMsgRequest,
+  proto.chatManagement.ChatMessage,
+  /**
+   * @param {!proto.chatManagement.ReceiveMsgRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.chatManagement.ChatMessage.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.chatManagement.ReceiveMsgRequest} request The request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.chatManagement.ChatMessage>}
+ *     The XHR Node Readable Stream
+ */
+proto.chatManagement.ChatServiceClient.prototype.receiveMsg =
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
+      '/chatManagement.ChatService/ReceiveMsg',
+      request,
+      metadata || {},
+      methodDescriptor_ChatService_ReceiveMsg);
+};
+
+
+/**
+ * @param {!proto.chatManagement.ReceiveMsgRequest} request The request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.chatManagement.ChatMessage>}
+ *     The XHR Node Readable Stream
+ */
+proto.chatManagement.ChatServicePromiseClient.prototype.receiveMsg =
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
+      '/chatManagement.ChatService/ReceiveMsg',
+      request,
+      metadata || {},
+      methodDescriptor_ChatService_ReceiveMsg);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.chatManagement.Empty,
+ *   !proto.chatManagement.UserList>}
+ */
+const methodDescriptor_ChatService_GetAllUsers = new grpc.web.MethodDescriptor(
+  '/chatManagement.ChatService/GetAllUsers',
+  grpc.web.MethodType.UNARY,
+  proto.chatManagement.Empty,
+  proto.chatManagement.UserList,
+  /**
+   * @param {!proto.chatManagement.Empty} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.chatManagement.UserList.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.chatManagement.Empty} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.chatManagement.UserList)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.chatManagement.UserList>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.chatManagement.ChatServiceClient.prototype.getAllUsers =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/chatManagement.ChatService/GetAllUsers',
+      request,
+      metadata || {},
+      methodDescriptor_ChatService_GetAllUsers,
+      callback);
+};
+
+
+/**
+ * @param {!proto.chatManagement.Empty} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.chatManagement.UserList>}
+ *     Promise that resolves to the response
+ */
+proto.chatManagement.ChatServicePromiseClient.prototype.getAllUsers =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/chatManagement.ChatService/GetAllUsers',
+      request,
+      metadata || {},
+      methodDescriptor_ChatService_GetAllUsers);
+};
+
+
 module.exports = proto.chatManagement;
 
